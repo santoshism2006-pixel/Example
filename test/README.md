@@ -1,47 +1,126 @@
-# Sample testbench for a Tiny Tapeout project
+# Tiny Tapeout - 8-bit Inverter
 
-This is a sample testbench for a Tiny Tapeout project. It uses [cocotb](https://docs.cocotb.org/en/stable/) to drive the DUT and check the outputs.
-See below to get started or for more information, check the [website](https://tinytapeout.com/hdl/testing/).
+## Project Description
 
-## Setting up
+This project implements a simple 8-bit inverter using Verilog HDL for Tiny Tapeout.
 
-1. Edit [Makefile](Makefile) and modify `PROJECT_SOURCES` to point to your Verilog files.
-2. Edit [tb.v](tb.v) and replace `tt_um_example` with your module name.
+The design accepts an 8-bit input through `ui_in` and produces the inverted output on `uo_out`.
 
-## How to run
+Example:
 
-To run the RTL simulation:
+Input:
+00001111
 
-```sh
-make -B
+Output:
+11110000
+
+---
+
+## Verilog Operation
+
+The inverter is implemented using:
+
+```verilog
+assign uo_out = ~ui_in;
 ```
 
-To run gatelevel simulation, first harden your project and copy `../runs/wokwi/results/final/verilog/gl/{your_module_name}.v` to `gate_level_netlist.v`.
+The `~` operator performs bitwise NOT operation.
 
-Then run:
+---
 
-```sh
-make -B GATES=yes
+## Pin Description
+
+### Inputs
+
+| Pin | Description |
+|-----|-------------|
+| ui_in[7:0] | 8-bit input data |
+
+### Outputs
+
+| Pin | Description |
+|-----|-------------|
+| uo_out[7:0] | Inverted 8-bit output |
+
+### Unused Pins
+
+| Pin | Status |
+|-----|--------|
+| uio_in | Unused |
+| uio_out | Unused |
+| uio_oe | Unused |
+| clk | Unused |
+| rst_n | Unused |
+
+---
+
+## File Structure
+
+```text
+project/
+│
+├── src/
+│   └── tt_um_example.v
+│
+├── test/
+│   └── tb.v
+│
+├── docs/
+│   └── info.md
+│
+├── info.yaml
+│
+└── README.md
 ```
 
-If you wish to save the waveform in VCD format instead of FST format, edit tb.v to use `$dumpfile("tb.vcd");` and then run:
+---
 
-```sh
-make -B FST=
+## Simulation
+
+### Compile
+
+```bash
+iverilog -o sim src/tt_um_example.v test/tb.v
 ```
 
-This will generate `tb.vcd` instead of `tb.fst`.
+### Run Simulation
 
-## How to view the waveform file
-
-Using GTKWave
-
-```sh
-gtkwave tb.fst tb.gtkw
+```bash
+vvp sim
 ```
 
-Using Surfer
+### Open Waveform
 
-```sh
-surfer tb.fst
+```bash
+gtkwave dump.vcd
 ```
+
+---
+
+## Expected Results
+
+| Input | Output |
+|------|------|
+| 00001111 | 11110000 |
+| 10101010 | 01010101 |
+| 11110000 | 00001111 |
+| 11111111 | 00000000 |
+
+---
+
+## Tiny Tapeout
+
+This project is designed for the Tiny Tapeout ASIC flow.
+
+The design demonstrates:
+
+- Basic combinational logic
+- Bitwise operations
+- Verilog HDL fundamentals
+- Tiny Tapeout top module structure
+
+---
+
+## Author
+
+Your Name
