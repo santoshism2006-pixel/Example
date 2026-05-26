@@ -1,6 +1,6 @@
 project:
   title: "8-bit Inverter"
-  author: "Your Name"
+  author: "Santoshi"
   discord: "your_discord_name"
   description: "A simple 8-bit inverter using Tiny Tapeout"
   language: "Verilog"
